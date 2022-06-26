@@ -52,7 +52,7 @@ int main(int argc , char *argv[])
     //Send some data
     //message = "GET / HTTP/1.1\r\n\r\n";
     //message = "hello";
-    message = "j#\r\n\r\n";
+    message = "G#\r\n\r\n";
     puts(message);
     
     if( send(s , message , strlen(message) , 0) < 0)
