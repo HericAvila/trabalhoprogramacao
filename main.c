@@ -52,7 +52,7 @@ int main(int argc , char *argv[])
     //Send some data
     //message = "GET / HTTP/1.1\r\n\r\n";
     //message = "hello";
-    message = "G#\r\n\r\n";
+    message = "G#\n";
     puts(message);
     
     if( send(s , message , strlen(message) , 0) < 0)
@@ -69,10 +69,14 @@ int main(int argc , char *argv[])
     }
 
     puts("Reply received\n");
-
+    char recebido[10];
     //Add a NULL terminating character to make it a proper string before printing
     server_reply[recv_size] = '\0';
     puts(server_reply);
-    scanf("%c",message);
+    printf("Digite seu codigo:\n");
+    scanf("%s",recebido);
+    printf("Codigo recebido foi : %s\n",recebido);
+
+    system("pause");
    // return 0;
 }

@@ -28,7 +28,7 @@
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
 IPAddress ip(192, 168, 1, 77); // IP address, may need to change depending on network
 EthernetServer server(80);  // create a server at port 80
-String readString;
+String readstring="";
 //int teste =2 ;
 void setup()
 {
@@ -42,25 +42,40 @@ void loop()
     
     EthernetClient client = server.available();  // try to get client
     if (client) {  // got client?
-        boolean currentLineIsBlank = true;
+        //boolean currentLineIsBlank = true;
         while (client.connected()) {
-            if (client.available()) {   // client data available to read
+            if (client.available()) {// client data available to read              
+              
                 char c = client.read(); // read 1 byte (character) from client
-                 readString += c;
+                
+                readstring += c;
                 // last line of client request is blank and ends with \n
                 // respond to client only after last line received
-                if (c == '\n' && currentLineIsBlank) {
-                  //Serial.print(66);
-                  Serial.print(readString);
-                  //client.println(123);  
-                  //readString                   
-               
-                if (readString == "G#\r\n\r\n"){                         
+                if (c == '\n' ) {
+                  //Serial.print(c);
+                  Serial.print(readstring);                                  
+
+                  if(readstring=="G#\n"){
                     Serial.print("GLS11#");
                     client.println("GLS11#");
-                   }
-                }
-                // every line of text received from the client ends with \r\n
+                    readstring=""; 
+                  }                   
+                
+                }//fim if
+
+/*              switch (readstring){
+                case "L02#":
+                  Serial.print("case1");
+                  break;
+                default:
+                  Serial.print("default");
+                  break;
+                break,
+                
+              }*/
+              
+                
+                /* every line of text received from the client ends with \r\n
                 else if (c == '\n') {
                     // last character on line of received text
                     // starting new line with next character read
@@ -69,13 +84,16 @@ void loop()
                 else if (c != '\r') {
                     // a text character was received from client
                     currentLineIsBlank = false;
-                }
+                }*/
                
             } // end if (client.available())
             
         } // end while (client.connected())
         
         delay(1);      // give the web browser time to receive the data
-        client.stop(); // close the connection
+        client.stop();
+        // close the connection
     } // end if (client)
+    
+    
 }
