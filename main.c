@@ -69,13 +69,34 @@ int main(int argc , char *argv[])
     }
 
     puts("Reply received\n");
-    char recebido[10];
+    //char recebido[10];
     //Add a NULL terminating character to make it a proper string before printing
     server_reply[recv_size] = '\0';
     puts(server_reply);
-    printf("Digite seu codigo:\n");
-    scanf("%s",recebido);
-    printf("Codigo recebido foi : %s\n",recebido);
+    //printf("Digite seu codigo:\n");
+    //scanf("%s",recebido);
+    //printf("Codigo recebido foi : %s\n",recebido);
+
+    //message = "LS02\n";
+    message="G\n";
+    puts(message);
+    if( send(s , message , strlen(message) , 0) < 0)
+    {
+        puts("Send failed");
+        return 1;
+    }
+    puts("Data Send\n");
+
+    if((recv_size = recv(s , server_reply , 2000 , 0)) == SOCKET_ERROR)
+    {
+        puts("recv failed");
+    }
+
+    puts("Reply received\n");
+    server_reply[recv_size] = '\0';
+    puts(server_reply);
+
+
 
     system("pause");
    // return 0;

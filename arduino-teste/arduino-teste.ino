@@ -47,47 +47,26 @@ void loop()
             if (client.available()) {// client data available to read              
               
                 char c = client.read(); // read 1 byte (character) from client
-                
+                //Serial.write (c);
                 readstring += c;
                 // last line of client request is blank and ends with \n
                 // respond to client only after last line received
                 if (c == '\n' ) {
                   //Serial.print(c);
-                  Serial.print(readstring);                                  
+                  Serial.print(readstring+"\n");                                  
 
                   if(readstring=="G#\n"){
-                    Serial.print("GLS11#");
+                    Serial.print("GLS11#\n");
                     client.println("GLS11#");
+                    
                     readstring=""; 
-                  }                   
-                
+                  }
+                  else if(readstring=="G\n"){
+                    Serial.print("segundo envio ok");
+                    client.println("segundo envio ok");
+                  }
                 }//fim if
-
-/*              switch (readstring){
-                case "L02#":
-                  Serial.print("case1");
-                  break;
-                default:
-                  Serial.print("default");
-                  break;
-                break,
-                
-              }*/
-              
-                
-                /* every line of text received from the client ends with \r\n
-                else if (c == '\n') {
-                    // last character on line of received text
-                    // starting new line with next character read
-                    currentLineIsBlank = true;
-                } 
-                else if (c != '\r') {
-                    // a text character was received from client
-                    currentLineIsBlank = false;
-                }*/
-               
             } // end if (client.available())
-            
         } // end while (client.connected())
         
         delay(1);      // give the web browser time to receive the data
