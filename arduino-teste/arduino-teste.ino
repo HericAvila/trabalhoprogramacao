@@ -45,29 +45,33 @@ void loop()
               if(readstring[1]=='0'){        
                 quant_leituras=(readstring[4]-'0');
                 
-                if(0<quant_leituras<5){
+                if(quant_leituras<5){
                   Serial.print(quant_leituras);
                   client.print(quant_leituras);                  
                 }
                 else{
-                  Serial.print("Entrada não é valida, digite um valor até 4 repeticoes;");
-                  client.print("Entrada não é valida, digite um valor até 4 repeticoes;"); 
+                  Serial.print("Entrada nao eh valida, digite um valor ateh 4 repeticoes;");
+                  client.print("Entrada nao eh valida, digite um valor ateh 4 repeticoes;"); 
                 }
                 
               }
               else if(readstring[1]=='1'){
                 
-                valor_atuacao_vet+=readstring[2];
-                valor_atuacao_vet+=readstring[3];
-                valor_atuacao_vet+=readstring[4]; 
-                
-                             
-                Serial.print(valor_atuacao_vet);
-                char str[10]="122" ;
+                for(int i=2;i<5;i++){
+                valor_atuacao_vet+=readstring[i];                 
+                }                             
+                char str[10]="";
                 strcpy (str ,valor_atuacao_vet.c_str());
-                int x = atoi(str);
-                client.print(x); 
+                valor_atuacao = atoi(str);
+
+                ////////////////////////////
+                //tem que mandar valor_atuacao para o servo
+                //////////////////////////
+                client.print("Servo setado para : "+valor_atuacao_vet); 
               }
+            }
+            else if(readstring[0]=='A'){
+              
             }
                               
             readstring="";
