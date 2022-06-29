@@ -5,6 +5,7 @@
 
 int main(int argc , char *argv[])
 {
+    #pragma region Conexão com o socket
 	setvbuf(stdout, NULL, _IONBF, 0);
 	setvbuf(stderr, NULL, _IONBF, 0);
 
@@ -28,7 +29,8 @@ int main(int argc , char *argv[])
         printf("Could not create socket : %d" , WSAGetLastError());
     }
     printf("Socket created.\n\n");
-
+    #pragma endregion
+    #pragma region Obtenção do IP
     //printf("Digite o IP que voce deseja se conectar:\n");
     //char ipdestino[13];
     //scanf("%s", &ipdestino);
@@ -46,40 +48,48 @@ int main(int argc , char *argv[])
         return 1;
     }
     puts("Connected");
-
-    ////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////  
-    for(int i=0;i<6;i++){
+    #pragma endregion
+    
+    ////////////////////////////////////////////////////////////////    
+    /*
     message = "G#";    
     puts(message);
-    
     if( send(s , message , strlen(message) , 0) < 0)
     {
-        puts("Send failed");
-        return 1;
+    puts("Send failed");
+    return 1;
     }
-    printf("Data Send\n");
-
-    //Receive a reply from the server
+    puts("Data Send");
     if((recv_size = recv(s , server_reply , 2000 , 0)) == SOCKET_ERROR)
     {
-        printf("recv failed");
-    } 
+        puts("recv failed");
+    }
+
+    puts("Reply received");    
+    server_reply[recv_size] = '\0';
+    puts(server_reply);  
+    */
     
-    //printf("Recebeu o %i envio \n",i);  
-    server_reply[recv_size] = '\0'; 
-    /*     
-    printf("%d ", server_reply[0]);
-    printf("%d ", server_reply[1]);
-    printf("%d ",  server_reply[2]);
-    printf("%d ",  server_reply[3]);    
-    printf("%d ",  server_reply[4]);
-    printf("%d ",  server_reply[5]);
-    printf("%d ",  server_reply[6]);
-    printf("%s ",server_reply);  */
-    puts(server_reply);
-    
-    } 
+    while ( strcmp(message,"EXIT#"))
+    {      
+        printf("Digite o codigo: ");
+        scanf("%s", message);
+        puts(message);
+          if( send(s , message , strlen(message) , 0) < 0)
+        {
+        puts("Send failed");
+        return 1;
+        }
+        puts("Dado enviado");
+        if((recv_size = recv(s , server_reply , 2000 , 0)) == SOCKET_ERROR)
+        {
+         puts("recv failed");
+        }
+
+        puts("Resposta recebida:\n");    
+        server_reply[recv_size] = '\0';
+        puts(server_reply);
+    }
 
     system("pause");
    // return 0;

@@ -49,18 +49,7 @@ int main(int argc , char *argv[])
     printf("Digite o Endereco de IP do intrumento que deseja conectar com pontos: ");
     gets (EnderecoIP);
     server.sin_addr.s_addr = inet_addr(EnderecoIP);
-    //edição
-
-
-
-
-
-    
-    
-    
-    
-    
-    
+    //edição    
     
     
     server.sin_family = AF_INET;
@@ -83,10 +72,9 @@ int main(int argc , char *argv[])
 
 
     while ( strcmp(message,"EXIT#"))
-    {
-      
+    {      
        printf("O que voce deseja: ");
-        scanf("%s", &message);
+        scanf("%s", message);
         puts(message);
           if( send(s , message , strlen(message) , 0) < 0)
         {
@@ -94,24 +82,14 @@ int main(int argc , char *argv[])
         return 1;
         }
         puts("Data Send\n");
-    
-    
-    
-    //Receive a reply from the server
-    recv_size = recv(s , server_reply , 2000 , 0);
-    if((recv_size = recv(s , server_reply , 2000 , 0)) == SOCKET_ERROR)
-    {
-        puts("recv failed");
-    }
+        if((recv_size = recv(s , server_reply , 2000 , 0)) == SOCKET_ERROR)
+        {
+         puts("recv failed");
+        }
 
-    puts("Reply received\n");
-
-
-    //Add a NULL terminating character to make it a proper string before printing
-    server_reply[recv_size] = '\0';
-    puts(server_reply);
-
-
+        puts("Reply received\n");    
+        server_reply[recv_size] = '\0';
+        puts(server_reply);
     }
     
 
