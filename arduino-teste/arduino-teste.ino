@@ -41,11 +41,34 @@ void loop()
               auxiliar = "";                  
               readstring="";               
             }
-            else if(readstring[0]=='L'){
+            else if(readstring[0]=='L'){ // se a msg esta no formato L0001# o "L" está na posição readstring[5], não?
               if(readstring[1]=='0'){        
                 quant_leituras=(readstring[4]-'0');
                 
-                if(quant_leituras<5){
+                if(quant_leituras<5){  // e qtde leitura posição quant_leituras[1]?
+                    //open_cleidson
+                    int a=1;
+                    //definir leituras, um bit por posição no vetor
+                    string leitura_sensor, sensor_unidade, sensor_dezena, sensor_centena;
+                    for (int i=0, i<quant_leituras), i++)
+                    {
+                        leitura_sensor[a+1]=sensor_unidade;
+                        a=a+1;
+                        leitura_sensor[a+1]=sensor_dezena;
+                         a=a+1;
+                        leitura_sensor[a+1]=sensor_centena;
+                        a=a+1
+                    }
+                    
+                    leitura_sensor[0]="#";
+                    leitura_sensor[1]="P";
+                    leitura_sensor[a+1]="0";
+                    leitura_sensor[a+2]="L";
+                    
+                    //deve enviar o vetor leitura sensor completo.
+                    
+                    //close_cleidson
+                    
                   Serial.print(quant_leituras);
                   client.print(quant_leituras);                  
                 }
