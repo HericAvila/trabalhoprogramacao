@@ -75,8 +75,8 @@ void loop()
             } 
             else if(readstring=="EXIT#"){
               client.print("EXIT#"); 
-            }
-            
+              client.stop();
+            }          
                       
                               
             readstring="";
