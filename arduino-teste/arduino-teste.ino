@@ -3,7 +3,7 @@
 
 
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
-IPAddress ip(192, 168, 0, 171); // IP address, may need to change depending on network
+IPAddress ip(192, 168, 4, 50); // IP address, may need to change depending on network
 EthernetServer server(80);  // create a server at port 80
 
 
@@ -72,7 +72,12 @@ void loop()
             }
             else if(readstring[0]=='A'){
               
+            } 
+            else if(readstring=="EXIT#"){
+              client.print("EXIT#"); 
             }
+            
+                      
                               
             readstring="";
             c=' ';
